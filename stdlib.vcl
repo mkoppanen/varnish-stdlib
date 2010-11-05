@@ -38,10 +38,15 @@ sub std_normalise_accept_encoding
  *   Adds custom Cache-Control directive to control how long Varnish
  *   keeps the item in cache. This allows using v-maxage as part of 
  *   Cache-Control header to override the cache lifetime internally
+ *
+ *   Usage: Cache-Control: public, max-age=10, s-maxage=10, v-maxage=3600
+ *
+ *   This would cause normal caches to cache for 10 seconds and Varnish 
+ *   for 3600 seconds
  */
 sub std_extended_cache_control
 {   
-    if (beresp.http.Cache-Control ~ "v-max-age=[0-9]+") {
+    if (beresp.http.Cache-Control ~ "v-maxage=[0-9]+") {
         /* Copy the ttl part from original header */
         set obj.http.X-Cache-Control-TTL = regsub(obj.http.Cache-Control, ".*v-maxage=([0-9]+).*", "\1");
 C{
