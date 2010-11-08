@@ -19,7 +19,7 @@ sub std_extended_cache_control
 {   
     if (beresp.http.Cache-Control ~ "v-maxage=[0-9]+") {
         /* Copy the ttl part from original header */
-        set obj.http.X-Cache-Control-TTL = regsub(obj.http.Cache-Control, ".*v-maxage=([0-9]+).*", "\1");
+        set obj.http.X-Cache-Control-TTL = regsub(beresp.http.Cache-Control, ".*v-maxage=([0-9]+).*", "\1");
 C{
         {   
             char *x_end = 0;
