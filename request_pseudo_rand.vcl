@@ -6,6 +6,11 @@ C{
 #include <stdio.h>
 
 #define STD_RAND_MAX_DEFAULT 10
+
+__attribute__((constructor)) void std_init_prng()
+{
+    srand(time(NULL));
+}
 }C
 
 /**
@@ -40,7 +45,6 @@ C{
     num_len = sprintf(str_buf, "%d", (int)(rand() % rand_max + 1));
     VRT_SetHdr(sp, HDR_REQ, "\017X-Varnish-Rand:", str_buf, vrt_magic_string_end);
 }C
-
     unset req.http.X-Varnish-Rand-Max;
 }
 
