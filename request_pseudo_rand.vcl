@@ -46,4 +46,5 @@ C{
 }C
     unset req.http.X-Varnish-Rand-Max;
 }
+/* }}} */
 
